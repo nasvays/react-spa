@@ -1,11 +1,20 @@
-const BASE_URL = 'https://jsonplaceholder.typicode.com';
+import axios from 'axios';
 
-export const ALL_POSTS = BASE_URL + '/posts';
+export const getUser = async (id) => {
+	const data = await axios.get(
+		`https://jsonplaceholder.typicode.com/users/${id}`
+	);
+	return data;
+};
 
-export const ALL_USERS = BASE_URL + '/users';
+export const getPosts = async () => {
+	const data = await axios.get(`https://jsonplaceholder.typicode.com/posts`);
+	return data;
+};
 
-export const searchComments = (id) => ALL_POSTS + '/' + id + '/comments';
-
-export const searchUsers = (id) => ALL_USERS + '/' + id;
-
-export const searchPost = (id) => ALL_POSTS + '/' + id;
+export const getComments = async (id) => {
+	const data = await axios.get(
+		`https://jsonplaceholder.typicode.com/posts/${id}/comments`
+	);
+	return data;
+};

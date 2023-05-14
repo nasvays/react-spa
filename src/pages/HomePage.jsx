@@ -1,17 +1,27 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { List } from '../components/List';
 import { Card } from '../components/Card';
-import { ALL_POSTS } from '../config';
+import { getPosts } from '../config';
 
-export const HomePage = ({ posts, setPosts }) => {
+export const HomePage = () => {
 	const navigate = useNavigate();
 
+	const [posts, setPosts] = useState(null);
+
 	useEffect(() => {
-		if (!posts.length)
-			axios.get(ALL_POSTS).then(({ data }) => setPosts(data));
+		//axios.get(ALL_POSTS).then(({ data }) => setPosts(data)); - замена на человеческий get
+		init();
 	}, []);
+
+	const init = async () => {
+		const data = await getPosts();
+		setPosts(data.data);
+	};
+
+	if (posts == null) {
+		return <div>Данные загружаются...Пора сменить провайдера</div>;
+	}
 
 	return (
 		<>
@@ -31,7 +41,7 @@ export const HomePage = ({ posts, setPosts }) => {
 					return (
 						<Card
 							key={p.id}
-							onClick={() => navigate(`/posts/${p.id}`)}
+							onClick={() => navigate(`/user/${p.userId}/posts/${p.id}`)} //исправление рутинга к карточке
 							{...postInfo}
 						/>
 					);

@@ -20,7 +20,7 @@ const CommentsEmail = styled.div`
 
 const CommentsBody = styled.div``;
 
-export const Comments = (props) => {
+export const Comment = (props) => {
 	const { name, email, body } = props;
 	return (
 		<div>

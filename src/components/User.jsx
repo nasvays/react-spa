@@ -1,8 +1,7 @@
-import axios from 'axios';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { searchPost } from '../config';
+import { getUser } from '../config';
 
 const UserName = styled.h3``;
 
@@ -11,24 +10,36 @@ const List = styled.ul``;
 const ListItem = styled.li``;
 
 export const User = () => {
-	const { id } = useParams();
-	const [post, setPost] = useState([]);
+	const [user, setUser] = useState(null);
+
+	const { userid } = useParams();
 
 	useEffect(() => {
-		axios.get(searchPost(id)).then(({ data }) => setPost(data));
-	}, [id]);
+		init();
+	}, []);
 
-	console.log(post.userId);
+	const init = async () => {
+		const data = await getUser(userid);
+		setUser(data);
+	};
+
+	if (user == null) {
+		return (
+			<div style={{ marginTop: '1rem' }}>
+				Загружаются данные о пользователе...
+			</div>
+		);
+	}
 
 	return (
 		<>
 			<UserName>User</UserName>
 			<List>
 				<ListItem>
-					<b>Name:</b>
+					<b>Name:{user.data.name}</b>
 				</ListItem>
 				<ListItem>
-					<b>E-mail:</b>
+					<b>E-mail:{user.data.email}</b>
 				</ListItem>
 			</List>
 		</>

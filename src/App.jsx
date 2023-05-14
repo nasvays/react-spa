@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Main } from './components/Main';
@@ -7,19 +6,13 @@ import { Details } from './pages/Details';
 import { NotFound } from './pages/NotFound';
 
 function App() {
-	const [posts, setPosts] = useState([]);
-
 	return (
 		<>
 			<Header />
 			<Main>
 				<Routes>
-					<Route
-						exact
-						path='/'
-						element={<HomePage posts={posts} setPosts={setPosts} />}
-					/>
-					<Route path='/posts/:id' element={<Details />} />
+					<Route path='/' element={<HomePage />} />
+					<Route path='/user/:userid/posts/:id' element={<Details />} />
 					<Route path='*' element={<NotFound />} />
 				</Routes>
 			</Main>
