@@ -9,7 +9,6 @@ export const Comments = () => {
 	const [comments, setComment] = useState(null);
 
 	useEffect(() => {
-		//axios.get(searchComments(id)).then(({ data }) => setComment(data));
 		init();
 	}, [id]);
 
@@ -17,8 +16,6 @@ export const Comments = () => {
 		const data = await getComments(id);
 		setComment(data.data);
 	};
-
-	console.log(comments);
 
 	if (comments == null) {
 		return <div>Комментарии загружаются...</div>;

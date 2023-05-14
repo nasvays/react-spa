@@ -10,7 +10,6 @@ export const HomePage = () => {
 	const [posts, setPosts] = useState(null);
 
 	useEffect(() => {
-		//axios.get(ALL_POSTS).then(({ data }) => setPosts(data)); - замена на человеческий get
 		init();
 	}, []);
 
